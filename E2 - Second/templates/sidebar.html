@@ -1,0 +1,18 @@
+{% load eshop %}
+{% block body %}
+    
+
+    <ul class="list-group">
+        {% for all_category in all_category %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href=" {% url 'filterhomepage' all_category.id %} ">
+                    {{all_category}}
+                </a>
+                <span class="badge badge-primary badge-pill">{{all_category.id|cat_count}}</span>
+            </li>
+        {% endfor %}
+        
+    </ul>
+
+{% endblock body %}
+

@@ -1,0 +1,124 @@
+{% load eshop %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="{% url 'homepage' %}">BigBrand<small>.com</small></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+  
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'homepage' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      {% comment %} <li class="nav-item">
+        <a class="nav-link" href="#">Features</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Pricing</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li> {% endcomment %}
+    </ul>
+
+    
+
+    <ul class="navbar-nav ml-auto">
+
+      {% if request.user.is_authenticated %}
+        
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'myorder' %}">Myorder</a>
+        </li>
+
+        <li class="nav-item">
+         <a type="button" class="nav-link" data-toggle="modal" data-target="#signup">
+            Cart/Checkout
+            <span class="badge badge-primary">{{request.session.cart|length}}</span>
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logoutpage' %}">Logout</a>
+        </li>
+      
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'changepassword' %}">ChangePassword</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'profilepage' %}">Profile</a>
+        </li>
+
+      {% else %}
+        <li class="nav-item active">
+          <a class="nav-link" href=" {% url 'loginpage' %} ">Login <span class="sr-only">(current)</span></a>
+        </li>
+      
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'signuppage' %}">Signup</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+
+
+ <div class="modal" id="signup" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    {% if request.session.cart %}
+              <table class="table table-borderless">
+          <thead>
+              <tr class="table-active">
+              <th scope="col">Sr.no</th>
+              <th scope="col">Name</th>
+              <th scope="col">Price</th>
+              <th scope="col">QTY</th>
+              <th scope="col">Total</th>
+              </tr>
+          </thead>
+          <tbody>
+
+        {% for product in nav_product  %}
+            <tr class="table-success">
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{product.p_name}}</td>
+            <td>{{product.price}}</td>
+            {% if request.session.cart  %}
+              <td>{{product|item_count:request.session.cart}}</td>
+              <td>{{product|item_total:request.session.cart}}</td>
+            {% endif %}
+            </tr>
+        {% endfor %}
+            <tr class="table-warning">
+            <th></th>
+            <td></td>
+            <td></td>
+            <td class="text-right">TOTAL :</td>
+            {% if request.session.cart  %}
+              <td>{{nav_product|total_bill:request.session.cart}}</td>
+            {% endif %}
+            </tr>
+    </table>
+    {% else %}
+      <h4>CART WAS EMPTY</h4>
+    
+    {% endif %}  
+      </div>
+      <div class="modal-footer">
+        {% if request.session.cart %}
+          <a href="{% url 'cart' %}" class="btn btn-primary">Cart</a>
+        {% endif %}
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

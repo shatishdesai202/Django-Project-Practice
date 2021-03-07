@@ -1,0 +1,126 @@
+{% load static %}
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/popper.js' %}"></script> 
+<script src="{% static 'js/boot.js' %}"></script> 
+
+<script>
+
+    $('.order').click(function(){
+        console.log('clicked')
+        let id = $(this).attr('data-id')
+        
+        console.log(id)
+        mythis = this
+        //console.log(mythis)
+        mydata = {proid:id}
+
+        $.ajax({
+
+            url : "{% url 'index' %}",
+            method : "POST",
+            data : mydata,
+            success : function(data){
+                
+                if(data.status == 1){
+                    console.log('working')
+                    console.log($(mythis).parent())
+                    setbutton = `<div  class=" btn row no-gutters mb-2 " >
+                                
+                                <form action="" class="float-left " method="POST" >
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.path }}">
+                                    <input type="hidden" name="productid" value="{{all_pro.id}}" >
+                                    <input type="hidden" name="remove" value="True" name="">
+                                    <input data-id="${data.pid}"  type="button" value="-" class="minusbtn btn btn-sm btn-danger">
+                                </form>
+
+                                <span  class="itemcount">${data.count}</span> 
+
+                                
+                                <form action="" class="float-right " method="POST" >
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.path }}">
+                                    <input type="hidden" name="productid" value="{{all_pro.id}}" >
+                                    <input data-id="${data.pid}" type="button" value="+" class="plusbtn btn btn-sm btn-danger">
+                                </form>
+                                 
+                            
+                            </div>`
+
+                    
+                        $(mythis).parent().html(setbutton);
+                       
+                }
+            }
+        })
+
+
+    })
+
+//plus button
+    $('div').on('click', '.plusbtn', function(){
+        console.log('plusbtn')
+        let id = $(this).attr('data-id')
+        mythis = this
+        //console.log(mythis)
+        mydata = {proid:id}
+        $.ajax({
+            url : "{% url 'index' %}",
+            method : "POST",
+            data : mydata,
+            success : function(data){
+                if (data.status == 1){
+                    
+                    console.log('data-count'+data.count)
+        
+                    let X = document.getElementsByClassName("itemcount");
+                    console.log(X)
+                    let Q = data.pid - 1
+                    console.log('data-id'+Q)
+                    $(X[Q]).html(data.count)
+                
+                }
+            }
+        })
+    })
+
+//minus button
+     $('div').on('click', '.minusbtn', function(){
+        let id = $(this).attr('data-id')
+        mythis = this
+        mydata = {proid:id, remove:'True'}
+        $.ajax({
+            url : "{% url 'index' %}",
+            method : "POST",
+            data : mydata,
+            success: function(data){
+                if(data.status == 1){
+                    
+                    console.log(data.count === null)
+
+                    if (data.count == null){
+                        
+                        
+                        setbutton = `<form action="" method="POST">
+                                    <input type="button" id="order" data-id="${data.pid}" class="order btn btn-success btn-block mb-2" value="Order Now">
+                                    
+                                    </form> `
+                        
+                        $(mythis).parent().parent().html(setbutton);
+                        
+                    }
+                    else{
+                        
+                        var X = document.getElementsByClassName("itemcount");
+                        console.log(data.pid)
+                        let Q = data.pid - 1
+                        let A = X[Q]
+                        $(X[Q]).html(data.count)
+                        console.log(A)
+                    }
+                }
+            }
+        })
+    })
+
+</script>

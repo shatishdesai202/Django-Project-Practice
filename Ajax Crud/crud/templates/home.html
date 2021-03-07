@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/boot.css' %}">
+    {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> {% endcomment %}
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h1 class="alert alert-warning text-center">Django Crud Operation With Ajax</h1>
+        <div class="row m-5">
+            <div class="col-md-4 border p-2">
+            <h3 class="alert alert-info text-center">Insert</h3>
+                <form id="form" action="" method="POST" novalidate>
+                    {% csrf_token %}
+                    <input type="hidden" name="stuid" id="stuid">
+                    {{form.as_p}}
+                    {% comment %} <input type="hidden" id="stuid" name="stuid" > {% endcomment %}
+                    {% comment %} <input type="button" id="stuid" name="stuid"> {% endcomment %}
+                    <input type="button" id="submitbutton" value="Save" class="btn btn-success">
+                </form>
+                <div style="display:none" class="alert alert-info mt-4 text-center"></div>
+            </div>
+
+            <div class="col-md-7 offset-1">
+                <table class="table text-center">
+                    <thead class="thead-light">
+                        <tr>
+                        <th scope="col">srno</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Password</th>
+                        <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablebody">
+                        {% for detail in detail %}
+                            <tr>
+                                <th scope="row">{{forloop.counter }}</th>
+                                <td>{{detail.name}}</td>
+                                <td>{{detail.email}}</td>
+                                <td>{{detail.password}}</td>
+                                <td> <input type="button" value="Edit" class="btn btn-warning btn-edit" data-sid="{{detail.id}}"> 
+                                 <input type="button" value="Delete" class="btn btn-danger btn-del"  data-sid="{{detail.id}}"> </td>
+                            </tr>
+                        {% endfor %}
+                    
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    {% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> {% endcomment %}
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}"></script> 
+    <script src="{% static 'js/boot.js' %}"></script> 
+    {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> {% endcomment %}
+    {% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> {% endcomment %}
+
+    {% include 'ajax.html' %}
+    
+</body>
+</html>

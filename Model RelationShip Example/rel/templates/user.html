@@ -1,0 +1,260 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href=" {% static 'css/boot.css' %} ">
+</head>
+<body>
+
+    <div class="container mt-5">
+        <div>
+            <h1>User All Data</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Sr.no</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">First-Name</th>
+                    <th scope="col">Last-Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for data in data  %}
+                    <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{data.username}}</td>
+                    <td>{{data.email}}</td>
+                    <td>{{data.first_name}}</td>
+                    <td>{{data.last_name}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+        <div>
+            <h1>Page user filter [pagename = 'harshil page'] Data</h1>
+            <table class="table">
+                <thead>
+                     <tr>
+                    <th scope="col">Sr.no</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">First-Name</th>
+                    <th scope="col">Last-Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for data in data1  %}
+                    <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{data.username}}</td>
+                    <td>{{data.email}}</td>
+                    <td>{{data.first_name}}</td>
+                    <td>{{data.last_name}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h1>Page user filter [pageview = '10'] Data</h1>
+            <table class="table">
+                <thead>
+                     <tr>
+                    <th scope="col">Sr.no</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">First-Name</th>
+                    <th scope="col">Last-Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for data in data2  %}
+                    <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{data.username}}</td>
+                    <td>{{data.email}}</td>
+                    <td>{{data.first_name}}</td>
+                    <td>{{data.last_name}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h1>Page user filter [page description = 'dharmik page description'] Data</h1>
+            <table class="table">
+                <thead>
+                     <tr>
+                    <th scope="col">Sr.no</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">First-Name</th>
+                    <th scope="col">Last-Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for data in data3  %}
+                    <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{data.username}}</td>
+                    <td>{{data.email}}</td>
+                    <td>{{data.first_name}}</td>
+                    <td>{{data.last_name}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <h1>POST TABLE DATA USING USER</h1>
+        
+        <div>
+            <h1>Filter[post__user__username__icontains="desai"]</h1>
+            <table class="table">
+                <thead>
+                     <tr>
+                    <th scope="col">Sr.no</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">First-Name</th>
+                    <th scope="col">Last-Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for data in data4  %}
+                    <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{data.username}}</td>
+                    <td>{{data.email}}</td>
+                    <td>{{data.first_name}}</td>
+                    <td>{{data.last_name}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h3>POST PAGE post_title </h3>
+            <table class="table">
+                <thead>
+                     <tr>
+                    <th scope="col">Sr.no</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">First-Name</th>
+                    <th scope="col">Last-Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for data in data5  %}
+                    <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{data.username}}</td>
+                    <td>{{data.email}}</td>
+                    <td>{{data.first_name}}</td>
+                    <td>{{data.last_name}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <h1>SONG</h1>
+
+        <div>
+            <h3>POST PAGE post_title </h3>
+            <table class="table">
+                <thead>
+                     <tr>
+                    <th scope="col">Sr.no</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">First-Name</th>
+                    <th scope="col">Last-Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for data in data6  %}
+                    <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{data.username}}</td>
+                    <td>{{data.email}}</td>
+                    <td>{{data.first_name}}</td>
+                    <td>{{data.last_name}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+        <div>
+            <h3>POST PAGE post_title </h3>
+            <table class="table">
+                <thead>
+                     <tr>
+                    <th scope="col">Sr.no</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">First-Name</th>
+                    <th scope="col">Last-Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for data in data7  %}
+                    <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{data.username}}</td>
+                    <td>{{data.email}}</td>
+                    <td>{{data.first_name}}</td>
+                    <td>{{data.last_name}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h3>POST PAGE post_title - 8</h3>
+            <table class="table">
+                <thead>
+                     <tr>
+                    <th scope="col">Sr.no</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">First-Name</th>
+                    <th scope="col">Last-Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for data in data8  %}
+                    <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{data.username}}</td>
+                    <td>{{data.email}}</td>
+                    <td>{{data.first_name}}</td>
+                    <td>{{data.last_name}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}"></script>
+    <script src="{% static 'js/boot.js' %}"></script>
+
+</body>
+</html>

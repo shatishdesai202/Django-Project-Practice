@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load eshop %}
+    {% block title %}
+
+     Home   
+    {% endblock title %}
+{% block body %}
+
+<div class="container-fluid mt-3">
+
+    <div class="row">
+
+        <div class="col-sm-2">
+
+            {% include 'sidebar.html' %}
+
+        </div>
+
+        <div class="col-md-8 offset-1 form-inline ">
+
+            {% if request.path == '/' %}
+
+                {% include 'carousel.html' %}
+            
+            {% endif %}
+
+            {% for all_pro in all_product %}
+
+            <div id="{{all_pro.id}}" class="card m-5" style="width: 20rem;">
+                <img class="card-img-top" height="200px"  width="200px" 
+                    src="{{all_pro.image.url}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{all_pro.p_name}}</h5>
+                    <p class="card-text">{{all_pro.desc|truncatechars:20}}</p>
+
+                    <div class="row">
+                        {% if all_pro|is_in_cart:request.session.cart %}
+                            <div  class=" btn btn-block row no-gutters mb-2 " >
+                                
+                                <form action="" class="float-left " method="POST" >
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.path }}">
+                                    <input type="hidden" name="productid" value="{{all_pro.id}}" >
+                                    <input type="hidden" name="remove" value="True" name="">
+                                    <input type="submit" value="-" class="btn btn-sm btn-danger">
+                                </form>
+
+                                <span>{{ all_pro|item_count:request.session.cart }}</span> 
+
+                                <form action="" class="float-right " method="POST" >
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.path }}">
+                                    <input type="hidden" name="productid" value="{{all_pro.id}}" >
+                                    <input type="submit" value="+" class="btn btn-sm btn-danger">
+                                </form> 
+                            
+                            </div>
+                        
+                        {% else %}
+                            
+                            <div class="card-footer p-0 btn btn-block text-center no-gutters">
+                                <form action="/#{{all_pro.id}}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="submit" class="btn btn-success btn-block mb-2" value="Order Now">
+                                    <input type="hidden" value="{{all_pro.id}}" name="productid">
+                                    <input type="hidden" name="next" value="{{ request.path }}">
+                                </form> 
+                            </div>
+                        
+                        {% endif %}
+                    </div>
+                    
+                    <a href="{% url 'previewpage' all_pro.id %}" class="btn btn-warning btn-block">Preview</a>
+                
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock body %}

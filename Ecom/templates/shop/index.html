@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load shop %}
+{% block main %}
+
+    <div class="container-fluid my-3">
+        <div class="row">
+            <div class="col-md-2">
+                {% include 'sidebar.html' %}
+            </div>
+
+            <div class="col-md-10  form-inline">
+
+                {% for product in all_product  %}
+
+                    <div class="card m-2" style="width: 18rem; ">
+                        <img class="card-img-top" height="200"  width="200" 
+                                    src="{{product.p_image.url}}" alt="Card image cap">
+                                    <hr>
+                        <div class="X card-body">
+                            
+                            <h5 class="card-title">{{product.p_name}}</h5>
+                            <p class="card-text">{{product.p_desc|truncatechars:23}}</p>
+
+                            {% if product|is_in_cart:request.session.cart %}
+                            
+                            <div   class=" btn row no-gutters mb-2 " >
+                                
+                                <form action="" class="float-left " method="POST" >
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.path }}">
+                                    <input type="hidden" name="productid" value="{{all_pro.id}}" >
+                                    <input type="hidden" name="remove" value="True" name="">
+                                    <input  type="button" data-id="{{product.id}}" value="-" class="minusbtn btn btn-sm btn-danger">
+                                </form>
+
+                                <span class="itemcount">{{product|item_count:request.session.cart }}</span> 
+
+                                <form action="" class="float-right " method="POST" >
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.path }}">
+                                    <input type="hidden" name="productid" value="{{all_pro.id}}" >
+                                    <input type="button" data-id="{{product.id}}" value="+" class="plusbtn btn btn-sm btn-danger">
+                                </form> 
+                            
+                            </div>
+                        
+                            {% else %}                    
+
+
+                            <form action="" method="POST">
+                                <input type="button" id="order" data-id="{{product.id}}" class="order btn btn-success btn-block mb-2" value="Order Now">
+                                <input type="hidden" value="{{product.id}}" name="productid">
+                                <input type="hidden" name="next" value="/">
+                            </form> 
+
+                            {% endif %}
+                            
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+                
+                
+            
+            </div>
+
+        </div>
+    </div>
+
+    {% include 'shop/index_js.html' %}
+{% endblock main %}

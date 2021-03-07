@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Student_detail</h1>
+
+    <h1>
+        <table>
+            <thead>
+                <tr>
+                <th scope="col">sr.no</th>
+                <th scope="col">name</th>
+                <th scope="col">course</th>
+                <th scope="col">age</th>
+                <th scope="col">roll number</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th >{{student.id}}</th>
+                    <td>{{student.name}}</td>
+                    <td>{{student.course}}</td>
+                    <td>{{student.age}}</td>
+                    <td>{{student.roll_number}}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+            
+        
+    </h1>
+    <hr>
+    <h4>
+        {% for user in all_user  %}
+            <p><a href=" {% url 'detailview' user.id %} ">{{user.name}}</a></p>
+        {% endfor %}
+    </h4>
+</body>
+</html>

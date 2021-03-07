@@ -1,0 +1,33 @@
+{% extends 'todo/base.html' %}
+{% block main %}
+
+    <div class="container">
+        <div class="row">
+        <div class="col-md-2 text-center">
+            {% for student in all_student  %}
+
+               <li>
+                    <a href=" {% url 'studentupdateview' student.id %} ">{{student}}</a>
+               </li>
+                
+                <form action=" {% url 'deleteview' student.id %} " method="GET">
+                    {% csrf_token %}
+                    <input type="hidden" name="getpk" value={{student.id}}>
+                    <input type="submit" value="DELETE">
+                </form>
+            
+            {% endfor %}
+        </div>
+        
+        <div class="col-md-9 offset-1">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" value="SUBMIT">
+            </form>
+        </div>
+        </div>
+    
+    </div>
+
+{% endblock main %}

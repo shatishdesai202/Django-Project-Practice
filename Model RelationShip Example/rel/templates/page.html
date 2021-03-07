@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href=" {% static 'css/boot.css' %} ">
+</head>
+<body>
+    <div class="container mt-5">
+        <div>
+            <h1>Page All Data</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Sr.no</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Views</th>
+                    <th scope="col">User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for data in data  %}
+                    <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{data.page_name}}</td>
+                    <td>{{data.page_description}}</td>
+                    <td>{{data.page_views}}</td>
+                    <td>{{data.user}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h1>Page filer Data</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Sr.no</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Views</th>
+                    <th scope="col">User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for data in data1  %}
+                    <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{data.page_name}}</td>
+                    <td>{{data.page_description}}</td>
+                    <td>{{data.page_views}}</td>
+                    <td>{{data.user}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h3>Page filer page view</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Sr.no</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Views</th>
+                    <th scope="col">User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in data1  %}
+                        <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{data.page_name}}</td>
+                        <td>{{data.page_description}}</td>
+                        <td>{{data.page_views}}</td>
+                        <td>{{data.user}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h3>Page filer by username</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Sr.no</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Views</th>
+                    <th scope="col">User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in data3  %}
+                        <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{data.page_name}}</td>
+                        <td>{{data.page_description}}</td>
+                        <td>{{data.page_views}}</td>
+                        <td>{{data.user}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}"></script>
+    <script src="{% static 'js/boot.js' %}"></script>
+
+
+</body>
+</html>

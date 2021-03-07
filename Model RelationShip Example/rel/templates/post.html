@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post</title>
+    <link rel="stylesheet" href=" {% static 'css/boot.css' %} ">
+
+</head>
+<body>
+    <h1>post</h1>
+
+        <div class="container">
+            <h2>Post All Data</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Sr.no</th>
+                    <th scope="col">title</th>
+                    <th scope="col">slug</th>
+                    <th scope="col">User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for data in data  %}
+                    <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{data.post_title}}</td>
+                    <td>{{data.post_slug}}</td>
+                    <td>{{data.user}}</td>
+                    
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container">
+            <h2>Post All Data</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Sr.no</th>
+                    <th scope="col">title</th>
+                    <th scope="col">slug</th>
+                    <th scope="col">User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for data in data1  %}
+                    <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{data.post_title}}</td>
+                    <td>{{data.post_slug}}</td>
+                    <td>{{data.user}}</td>
+                    
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}"></script>
+    <script src="{% static 'js/boot.js' %}"></script>
+
+
+</body>
+</html>

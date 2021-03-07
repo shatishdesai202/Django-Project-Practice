@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="1">
+    <title>Document</title>
+</head>
+<body>
+    <h1>set cookies</h1>
+    <h1>{{tst}}</h1>
+    <h3>cookies Age :-{{request.session.get_session_cookie_age}}</h3> <br>
+    <h3>expiry Age :-{{request.session.get_expiry_age}}</h3> <br>
+    <h3>date Age :-{{request.session.get_expiry_date}}</h3> <br>
+    <h3>browser Age :-{{request.session.get_expire_at_browser_close}}</h3> <br>
+    {% for key , value  in key %}
+        <h1>{{key}} {{value}}</h1>
+    {% endfor %}
+    
+    
+</body>
+</html>

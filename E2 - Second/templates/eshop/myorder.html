@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load eshop %}
+{% block title %}
+My | Order
+{% endblock title %}
+{% block body %}
+            {% if a|length == 0 %}
+                <h3>No Previous Order</h3>
+            {% else %}
+                
+                <div class="container mt-4">
+                <table class="table table-borderless">
+                <thead>
+                    <tr class="table-active">
+                    <th scope="col">Sr.no</th>
+                    <th scope="col">Item-Image</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">QTY</th>
+                    <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for product in a  %}
+                    {% if forloop.counter|divisibleby:2 %}
+                        <tr class="table-success">
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td><img height="100px" width="100px" class="img-thumbnail" src="{{product.item.image.url}}" alt=""></td>
+                        <td>{{product.item.p_name}}</td>
+                        <td>{{product.price}}</td>
+                        <td>{{product.qty}}</td>
+                        <td>{{product.date}}</td>
+                        </tr>
+                    {% else %}
+                        <tr class="table-danger">
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td><img height="100px"  width="100px" class="img-thumbnail" src="{{product.item.image.url}}" alt=""></td>
+                        <td>{{product.item.p_name}}</td>
+                        <td>{{product.price}}</td>
+                        <td>{{product.qty}}</td>
+                        <td>{{product.date}}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </table>
+            {% endif %}
+    </div>
+{% endblock body %}

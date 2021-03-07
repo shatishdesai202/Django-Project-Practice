@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href=" {% static 'css/boot.css' %} ">
+</head>
+<body>
+    <div class="container">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="SUBMIT">
+    </form>
+
+    <hr>
+    <br>
+    <h2>Update</h2>
+    <br>
+    <hr>
+
+    {% for all_Students in all_Students %}
+        <div>
+                <a href=" {% url 'updateviewpage' all_Students.id %} ">
+                    {{all_Students.name}} 
+                </a> 
+        </div>
+    {% endfor %}
+    </div>
+
+    <script src=" {% static 'js/jquery.js' %} "></script>
+    <script src=" {% static 'js/popper.js' %} "></script>
+    <script src=" {% static 'js/boot.js' %} "></script>
+
+</body>
+</html>

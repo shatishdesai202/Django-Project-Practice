@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment|status</title>
+    <link rel="stylesheet" href="{% static 'css/boot.css' %}">
+
+</head>
+<body>
+
+    <h1 class="alert alert-info">{{responce.RESPMSG}}</h1>
+    {% for key, values in responce.items  %}
+        <div class="container">
+        <li>
+            {{key}} / {{values}}</li>
+        </div>
+    {% endfor %}
+    
+    <a class="btn btn-success" href="{% url 'homepage' %}"> <- Back To Home </a>
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}"></script>
+    <script src="{% static 'js/boot.js' %}"></script>
+
+
+</body>
+</html>

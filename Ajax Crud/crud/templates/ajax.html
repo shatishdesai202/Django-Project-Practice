@@ -1,0 +1,117 @@
+<script>
+$('#submitbutton').click(function(){
+    console.log('btn clicked');
+    let sid = $('#stuid').val()
+    let nm = $('#nameinput').val();
+    let em = $('#emailinput').val();
+    let pa = $('#passwordinput').val();
+    let csr = $('input[name=csrfmiddlewaretoken]').val();
+    if (nm == ""){
+        console.log('enter name');
+        $('.alert').text('enter name')
+        $('.alert').show(3000)
+    }else if(em == ""){
+        console.log('enter email');
+        $('.alert').text('enter email')
+        $('.alert').show()
+    }else if(pa ==  ""){
+        console.log('enter password');
+        $('.alert').text('enter password')
+        $('.alert').show()
+    }else{
+        mydata = {stuid:sid, name:nm, email:em, password:pa, csrfmiddlewaretoken:csr};
+        var output
+        $.ajax({
+            url : "{% url 'save' %}",
+            method : "POST",
+            data : mydata,
+            success : function(data){
+                l = data.all_detail
+                
+                
+                if (data.status == 'save'){
+                    for(i=0; i<l.length; i++)
+                    {
+                        output += `<tr>
+                                <th scope="row">${i+1}</th>
+                                <td>${l[i].name}</td>
+                                <td>${l[i].email}</td>  
+                                <td>${l[i].password}</td>
+                                <td> <input type="button" value="Edit" class="btn btn-warning btn-edit" data-sid="${l[i].id}"> 
+                                <input type="button" value="Delete" class="btn btn-danger btn-del"  data-sid="${l[i].id}"> </td>
+                            </tr>`
+
+                            if(sid == ""){
+                                $('.alert').text('Insert Successfully')
+                                $('.alert').show()
+                            }else{
+                                $('.alert').text('Update Successfully')
+                                $('.alert').show()
+                            }
+
+                    }
+                    $('#tablebody').val = ""
+                    $('#tablebody').html(output)
+                    $('#stuid').val('')
+                    $('#form')[0].reset()
+                    
+                }
+            },
+        });
+    }
+});
+
+// Delete btn code
+
+$('tbody').on('click', '.btn-del', function(){
+    console.log('delete button click')
+    let id = $(this).attr('data-sid')
+    let csr = $('input[name=csrfmiddlewaretoken]').val();
+    
+    mythis = this
+    
+    mydata = {sid:id, csrfmiddlewaretoken:csr}
+    var output
+    $.ajax({
+        url : "{% url 'delete' %}",
+        method : "POST",
+        data : mydata,
+        success : function(data){
+            if (data.status == 1){
+                $('.alert').text('delete Successfully')
+                $('.alert').show()
+                $(mythis).closest('tr').fadeOut()
+                
+            }
+        }
+    })
+});
+
+// Edit btn code
+
+$('tbody').on('click', '.btn-edit', function(){
+    
+    let id = $(this).attr('data-sid')
+    let csr = $('input[name=csrfmiddlewaretoken]').val();
+    
+    mythis = this
+    
+    mydata = {sid:id, csrfmiddlewaretoken:csr}
+    $.ajax({
+        url : "{% url 'update' %}",
+        method : "POST",
+        data : mydata,
+        success : function(data){
+            if (data.status == 1){
+                console.log(data.id)
+                $('#stuid').attr('value',data.id);
+                console.log($('#stuid').val())
+                $('#nameinput').val(data.name);
+                $('#emailinput').val(data.email);
+                $('#passwordinput').val(data.password);
+            }
+        }
+    })
+});
+
+</script>

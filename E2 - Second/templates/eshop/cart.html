@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load eshop %}
+{% block title %}
+Cart
+{% endblock title %}
+{% block body %}
+<div class="container mt-5">
+
+    {% if request.session.cart %}
+    <table class="table table-borderless">
+    <thead>
+        <tr class="table-active">
+        <th scope="col">Sr.no</th>
+        <th scope="col">Item-Image</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">QTY</th>
+        <th scope="col">Total</th>
+        <th scope="col">Remove Item</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in all_product  %}
+            <tr class="table-success">
+            <th scope="row">{{ forloop.counter }}</th>
+            <td><img height="60px" width="60px" class="img-thumbnail" src="{{product.image.url}}" alt=""></td>
+            <td>{{product.p_name}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product|item_count:request.session.cart}}</td>
+            <td>{{product|item_total:request.session.cart}}</td>
+            <td><a href="{% url 'itempop' product.id %}">Remove Items</a></td>
+            </tr>
+        {% endfor %}
+            <tr class="table-warning">
+            <th></th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="text-right">TOTAL :</td>
+            <td>{{all_product|total_bill:request.session.cart}}</td>
+            </tr>
+    </table>
+
+
+    <div class="text-right">
+        <a href="{% url 'checkout' %}" class="btn btn-warning">CHECK OUT</a>
+    </div>
+
+    {% else %}
+        <form id="myForm" action="{% url 'homepage' %}" method="GET">
+            <input type="hidden" name="">
+        </form> 
+    {% endif %}
+
+</div>
+
+<script>
+
+document.getElementById("myForm").submit();
+
+</script>
+
+{% endblock body %}

@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href=" {% static 'css/boot.css' %} ">
+
+</head>
+<body>
+
+    <div class="container mt-5">
+
+        <a href="{% url 'user' %}" class="btn btn-primary btn-block">User</a>
+
+        <a href="{% url 'page' %}" class="btn btn-danger btn-block">Page</a>
+        
+        <a href="{% url 'post' %}" class="btn btn-info btn-block">Post</a>
+
+        <a href="{% url 'song' %}" class="btn btn-secondary btn-block">Song</a>
+    
+    </div>
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}"></script>
+    <script src="{% static 'js/boot.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load eshop %}
+{% block title %}
+CheckOut
+{% endblock title %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-md-4">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr class="table-active">
+                        <th scope="col">Sr.no</th>
+                        <th scope="col">Item-Image</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">QTY</th>
+                        <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in all_product  %}
+                            <tr class="table-success">
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td><img height="60px" width="60px" class="img-thumbnail" src="{{product.image.url}}" alt=""></td>
+                            <td>{{product.p_name}}</td>
+                            <td>{{product.price}}</td>
+                            <td>{{product|item_count:request.session.cart}}</td>
+                            <td>{{product|item_total:request.session.cart}}</td>
+                            
+                            </tr>
+                        {% endfor %}
+                            <tr class="table-warning">
+                            <th></th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-right">TOTAL :</td>
+                            <td id="billamount">{{all_product|total_bill:request.session.cart}}</td>
+                            </tr>
+                    </table>
+            </div>
+
+            <div class="col-md-7 offset-1">
+                <h1>{{request.user}}</h1>
+    
+    <div class="container mt-5">
+        {% if form.non_field_errors %}
+            <div class="non-field-errors">
+                {% for err in form.non_field_errors %}
+                <p class="alert alert-danger">{{ err }}</p>
+                {% endfor %}
+            </div>
+        {% endif %} 
+
+        <form action="{% url 'checkout' %}" method="POST">
+            {% csrf_token %}
+            {% for form in form %}
+                <div class="form-group">
+                    {{form.label_tag}}
+                    {{form}}
+                    {% for error in form.errors %}
+                        <div style="width:600px; height:35px;" class="text-danger">
+                            <strong>*{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <input type="hidden" name="amount" id="amount">
+            <input class="btn btn-success mt-3" type="submit" value="Payment">
+        </form>
+    </div>
+            </div>
+
+        </div>
+    </div>
+
+<script>
+
+var totalamount = document.getElementById("billamount").innerHTML
+var amount = document.getElementById("amount")
+amount.value = totalamount
+
+</script>
+
+{% endblock body %}
